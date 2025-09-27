@@ -5,8 +5,7 @@ public class Cylinder
         IVolumeException() {}
     }
 
-    public Cylinder(double r, double h) throws IVolumeException
-    {
+    public Cylinder(double r, double h) throws IVolumeException, Figure.IAreaException {
         if (h <= 0) throw new IVolumeException();
         this.f = new Circle(r);
         this.h = h;

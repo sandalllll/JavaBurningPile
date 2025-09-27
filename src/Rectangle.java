@@ -2,7 +2,7 @@ public class Rectangle implements Figure
 {
     Rectangle(double width, double height) throws IAreaException
     {
-        if (r <= 0) throw new Figure.IAreaException();
+        if ((width <= 0) || (height <= 0)) throw new Figure.IAreaException();
         w = width;
         h = height;
     }

@@ -166,7 +166,7 @@ public class Main
                 Cylinder c = new Cylinder(2.01, 4.65);
                 System.out.println("Cylinder(2.01, 4.65) volume: " + c.volume());
             }
-            catch (Cylinder.IVolumeException a)
+            catch (Cylinder.IVolumeException | Figure.IAreaException a)
             {
                 System.out.println("err while create cylinder");
             }
@@ -176,7 +176,7 @@ public class Main
                 Cylinder c = new Cylinder(2.01, -4.65);
                 System.out.println("Cylinder(2.01, 4.65) volume: " + c.volume());
             }
-            catch (Cylinder.IVolumeException a)
+            catch (Cylinder.IVolumeException | Figure.IAreaException a)
             {
                 System.out.println("err while create cylinder");
             }
