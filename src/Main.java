@@ -121,6 +121,67 @@ public class Main
             System.out.println("average: " + t.average());
         }
 
+        //N6
+        System.out.println("\nNo 6. Shapes.");
+        {
+            try
+            {
+                Circle c = new Circle(4.25);
+                System.out.println("Shape: " + c.toString_());
+                System.out.println("Area: " + c.area());
+                System.out.println("Perimeter: " + c.perimeter());
+            }
+            catch (Figure.IAreaException a)
+            {
+                System.out.println("err while create circle");
+            }
+
+            try
+            {
+                Rectangle r = new Rectangle(6.17, 3.08);
+                System.out.println("Shape: " + r.toString_());
+                System.out.println("Area: " + r.area());
+                System.out.println("Perimeter: " + r.perimeter());
+            }
+            catch (Figure.IAreaException a)
+            {
+                System.out.println("err while create rectangle");
+            }
+
+            try
+            {
+                Rectangle r = new Rectangle(6.17, -3.08);
+                System.out.println("Shape: " + r.toString_());
+                System.out.println("Area: " + r.area());
+                System.out.println("Perimeter: " + r.perimeter());
+            }
+            catch (Figure.IAreaException a)
+            {
+                System.out.println("err while create rectangle");
+            }
+
+
+            try
+            {
+                Cylinder c = new Cylinder(2.01, 4.65);
+                System.out.println("Cylinder(2.01, 4.65) volume: " + c.volume());
+            }
+            catch (Cylinder.IVolumeException a)
+            {
+                System.out.println("err while create cylinder");
+            }
+
+            try
+            {
+                Cylinder c = new Cylinder(2.01, -4.65);
+                System.out.println("Cylinder(2.01, 4.65) volume: " + c.volume());
+            }
+            catch (Cylinder.IVolumeException a)
+            {
+                System.out.println("err while create cylinder");
+            }
+        }
+
         //N7
         System.out.println("\nNo 7. FileAnalyzer.");
         {
