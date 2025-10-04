@@ -80,7 +80,7 @@ public class Main
 
         //N2
         {
-            System.out.println("\n2");
+            System.out.println("\nN2");
             System.out.print("input primes count: ");
             Scanner s = new Scanner(System.in);
             int arrSize = Integer.parseInt(s.nextLine());
@@ -121,7 +121,90 @@ public class Main
 
         //4
         {
+            String txt;
+            {
+                System.out.println("\nN2");
+                System.out.println("write something: ");
+                Scanner s = new Scanner(System.in);
+                txt = s.nextLine();
+            }
+            txt = txt.toLowerCase();
+            txt = txt.replaceAll("[!\"#$%&`~()*+,./:;<=>?@^{}|\\[\\]\\\\]"," ");
+            ArrayList<String> words = new ArrayList<String>(Arrays.stream(txt.split(" ")).toList());
 
+            {
+                Iterator<String> wrdi = words.iterator();
+                while (wrdi.hasNext())
+                {
+                    String word = wrdi.next();
+                    if (word.isEmpty())
+                        wrdi.remove();
+                }
+            }
+
+            HashMap<String, Integer> textStats = new HashMap<String, Integer>();
+
+            {
+                Iterator<String> wrdi = words.iterator();
+                while (wrdi.hasNext())
+                {
+                    String word = wrdi.next();
+                    if(textStats.containsKey(word))
+                    {
+                        Integer tmp = textStats.get(word);
+                        tmp++;
+                        textStats.replace(word, tmp);
+                    }
+                    else
+                        textStats.put(word, 1);
+                }
+            }
+
+            for (Map.Entry<String, Integer> entry : textStats.entrySet())
+            {
+                System.out.println(entry.getKey() + " contains " + entry.getValue() + " times");
+            }
+        }
+
+        //5
+        {
+            System.out.println("\nN2");
+
+            Map<Integer, Integer> map = new HashMap<>();
+
+            {
+                Scanner s = new Scanner(System.in);
+                while (true)
+                {
+                    System.out.print("write key value (or 'x' to break): ");
+                    String line = s.nextLine();
+                    if (line.charAt(0) == 'x')
+                        break;
+                    Integer key = Integer.parseInt(line);
+                    System.out.print("write value: ");
+                    map.put(key, Integer.parseInt(s.nextLine()));
+                }
+            }
+
+            Map<Integer, ArrayList<Integer>> inverseMap = new HashMap<>();
+
+            for (Map.Entry<Integer, Integer> entry : map.entrySet())
+            {
+                Integer key = entry.getKey();
+                Integer value = entry.getValue();
+                if (inverseMap.containsKey(value))
+                {
+                    ArrayList<Integer> keysInv = inverseMap.get(value);
+                    keysInv.add(key);
+                }
+                else
+                {
+                    ArrayList<Integer> keysInv = new ArrayList<>();
+                    keysInv.add(key);
+                    inverseMap.put(value, keysInv);
+                }
+            }
+            System.out.println(inverseMap);
         }
     }
 }
