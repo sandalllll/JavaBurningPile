@@ -25,7 +25,7 @@ public class Main
                 arr[i] = randomGenerator.nextInt(100);
                 System.out.print(arr[i] + ", ");
             }
-            arr[arrSize - 1] = randomGenerator.nextInt(100);
+            if (arrSize > 0) arr[arrSize - 1] = randomGenerator.nextInt(100);
             System.out.println(arr[arrSize - 1] + "]");
             List<Integer> list = Arrays.asList(arr);
             System.out.println("created: List<Integer>");
@@ -35,6 +35,7 @@ public class Main
             Collections.shuffle(list);
             System.out.print("shuffled: ");
             System.out.println(list);
+            if (list.size() > 1)
             {
                 Integer a = list.getFirst();
                 for (int i = 0; i < arrSize - 1; i++)
