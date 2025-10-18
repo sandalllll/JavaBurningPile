@@ -3,11 +3,15 @@ import java.util.List;
 
 public class ShoeWarehouse
 {
-    public class Order
+    public static class Order
     {
         public int id;
         public int type;
         public int amount;
+        public Order()
+        {
+            id = type = amount = 0;
+        }
     }
 
     List<Order> queue;
@@ -17,19 +21,21 @@ public class ShoeWarehouse
         queue = new ArrayList<Order>();
     }
 
-    public void receiveOrder(Order order) throws InterruptedException
+    public synchronized void receiveOrder(Order order) throws InterruptedException
     {
         if (queue.size() >= 10)
             wait();
         queue.addLast(order);
+        System.out.println("Added");
         notifyAll();
     }
 
-    public void fulfillOrder() throws InterruptedException
+    public synchronized void fulfillOrder() throws InterruptedException
     {
         if (queue.isEmpty())
             wait();
         queue.removeFirst();
+        System.out.println("Removed");
         notifyAll();
     }
 }
