@@ -1,3 +1,4 @@
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,10 +15,16 @@ public class ShoeWarehouse
         }
     }
 
-    List<Order> queue;
+    public int[] itemTypes;
+    private List<Order> orders;
+
+    private List<Order> queue;
 
     public ShoeWarehouse()
     {
+        itemTypes = null;
+        orders = null;
+
         queue = new ArrayList<Order>();
     }
 
