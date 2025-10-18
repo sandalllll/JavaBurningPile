@@ -11,6 +11,37 @@ public class Main
     //"C:\Program Files\Java\jdk-24\bin\jar.exe" cfm ./bin/app.jar ./src/manifest.mf -C ./out .
 
     //java -jar ./bin/app.jar
+
+    static int n = 0;
+    static ShoeWarehouse sw = null;
+    public  static void addf()
+    {
+        Random r = new Random();
+        for(int i = 0; i < n; i++)
+        {
+            ShoeWarehouse.Order ord = new ShoeWarehouse.Order();
+            ord.id = r.nextInt();
+            ord.type = r.nextInt();
+            ord.amount = r.nextInt();
+            try {
+                sw.receiveOrder(ord);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+    public  static void remf()
+    {
+        for(int i = 0; i < n; i++)
+        {
+            try {
+                sw.fulfillOrder();
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
     public static void main(String[] args) throws InterruptedException {
         //N1
         {
@@ -36,43 +67,10 @@ public class Main
             System.out.println("\nN2");
             System.out.print("input orders count: ");
             Scanner s = new Scanner(System.in);
-            int n = Integer.parseInt(s.nextLine());
-            ShoeWarehouse sw = new ShoeWarehouse();
-
-            Thread addThread = new Thread
-            (
-                () ->
-                {
-                    Random r = new Random();
-                    for(int i = 0; i < n; i++)
-                    {
-                        ShoeWarehouse.Order ord = new ShoeWarehouse.Order();
-                        ord.id = r.nextInt();
-                        ord.type = r.nextInt();
-                        ord.amount = r.nextInt();
-                        try {
-                            sw.receiveOrder(ord);
-                        } catch (InterruptedException e) {
-                            throw new RuntimeException(e);
-                        }
-                    }
-                }
-            );
-
-            Thread remThread = new Thread
-            (
-                () ->
-                {
-                    for(int i = 0; i < n; i++)
-                    {
-                        try {
-                            sw.fulfillOrder();
-                        } catch (InterruptedException e) {
-                            throw new RuntimeException(e);
-                        }
-                    }
-                }
-            );
+            n = Integer.parseInt(s.nextLine());
+            sw = new ShoeWarehouse();
+            Thread addThread = new Thread(Main::addf);
+            Thread remThread = new Thread(Main::remf);
 
             addThread.start();
             remThread.start();
@@ -83,45 +81,13 @@ public class Main
             System.out.println("\nN3");
             System.out.print("input orders count: ");
             Scanner s = new Scanner(System.in);
-            int n = Integer.parseInt(s.nextLine());
-            ShoeWarehouse sw = new ShoeWarehouse();
+            n = Integer.parseInt(s.nextLine());
+            sw = new ShoeWarehouse();
 
             ExecutorService ex = Executors.newFixedThreadPool(2);
 
-            ex.submit
-            (
-                () ->
-                {
-                    Random r = new Random();
-                    for(int i = 0; i < n; i++)
-                    {
-                        ShoeWarehouse.Order ord = new ShoeWarehouse.Order();
-                        ord.id = r.nextInt();
-                        ord.type = r.nextInt();
-                        ord.amount = r.nextInt();
-                        try {
-                            sw.receiveOrder(ord);
-                        } catch (InterruptedException e) {
-                            throw new RuntimeException(e);
-                        }
-                    }
-                }
-            );
-
-            ex.submit
-            (
-                () ->
-                {
-                    for(int i = 0; i < n; i++)
-                    {
-                        try {
-                            sw.fulfillOrder();
-                        } catch (InterruptedException e) {
-                            throw new RuntimeException(e);
-                        }
-                    }
-                }
-            );
+            ex.submit(Main::addf);
+            ex.submit(Main::remf);
 
             ex.shutdown();
         }
