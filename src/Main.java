@@ -10,6 +10,26 @@ public class Main
     //java -jar ./bin/app.jar
     public static void main(String[] args)
     {
-        System.out.println("Bye now!");
+        //N1
+        {
+            Thread evenThread = new EvenNumbers();
+            Thread oddThread = new Thread(
+                () ->
+                {
+                    for(int i = 1; i < 10; i += 2)
+                    {
+                        System.out.println(i);
+                    }
+                }
+            );
+
+            evenThread.start();
+            oddThread.start();
+        }
+
+        //N2
+        {
+
+        }
     }
 }
